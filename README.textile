@@ -1,0 +1,17 @@
+﻿Welcome to send me feedback in github or "@huandu":http://twitter.com/huandu on twitter.
+
+h2. List of tools
+
+h3. The remote script runner: <code>remote</code>
+
+If you usually run remote script with ssh or tools using ssh (e.g. pssh and onall), you will it's hard to stop remote script. It means, even if the ssh connection is down, the remote script will keep running until it exits normally.
+
+This script is designed to resolve this issue. It's quite handy.
+
+Basically, use it like 'nice'. Here is a sample.
+
+<code>
+ssh your-host 'remote tail -f your-log'
+</code>
+
+With the 'remote', you can safely stop this ssh connection any time.

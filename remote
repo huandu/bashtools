@@ -8,13 +8,11 @@
 # https://github.com/huandu/bashtools/blob/master/LICENSE
 ##
 # Script name: remote
-# Usage: ssh your-host 'remote the-remote-command-to-execute'
-#
-# Basically, this script works like 'nice'. Its major feature is to automatically
-# detect ssh connection status. If the ssh connection is down, this script kills
-# all children proc and exits.
-#
 # This script works best with ssh, pssh, onall. Don't use it on local terminal.
+# Sample usage:
+# ssh your-host 'remote tail -f your-log'
+#
+# See more information in README.
 
 function get_ppid {
 	THE_PPID=$1
