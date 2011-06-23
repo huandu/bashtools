@@ -1,0 +1,60 @@
+#! /bin/bash
+##
+# Several bash scripts to make life easier :)
+# https://github.com/huandu/bashtools/
+# 
+# Copyright 2011, Huan Du
+# Licensed under the MIT license
+# https://github.com/huandu/bashtools/blob/master/LICENSE
+##
+# Script name: remote
+# Usage: ssh your-host 'remote the-remote-command-to-execute'
+#
+# Basically, this script works like 'nice'. Its major feature is to automatically
+# detect ssh connection status. If the ssh connection is down, this script kills
+# all children proc and exits.
+#
+# This script works best with ssh, pssh, onall. Don't use it on local terminal.
+
+function get_ppid {
+	THE_PPID=$1
+	awk '/PPid:/ {print $2;}' /proc/$THE_PPID/status
+}
+
+function get_ppid_name {
+	THE_PPID=$1
+	awk '/Name:/ {print $2;}' /proc/$THE_PPID/status
+}
+
+for ((i=1;i<=$#;i++)); do
+    PARAM=`eval 'echo \$'$i | awk '{str = $0; gsub(/[\"\$\\\'"'"']/, "\\\\\\\&", str); if (str ~ / /) print "\""str"\""; else print str;}'`
+	PARAMS="$PARAMS $PARAM"
+done
+
+/bin/bash -c "nice $PARAMS" &
+CHILD_PID=$!
+
+CUR_PPID=$PPID
+THE_PPPID=`get_ppid $CUR_PPID`
+THE_PPPID_NAME=`get_ppid_name $CUR_PPID`
+
+while [ "$THE_PPPID_NAME" != "sshd" ] && (($THE_PPPID > 2)); do
+	CUR_PPID=$THE_PPPID
+	THE_PPPID=`get_ppid $CUR_PPID`
+	THE_PPPID_NAME=`get_ppid_name $CUR_PPID`
+done
+
+while true; do
+	if [ ! -e /proc/$CHILD_PID ]; then
+		exit
+	fi
+
+	if [ ! -e /proc/$CUR_PPID ]; then
+		# kill all childrens
+		GROUP_ID=`ps x -o "%p %r" | awk -v self="$$" '{if ($1 == self) print $2;}'`
+		kill -9 -$GROUP_ID
+		exit
+	fi
+
+	usleep 100000
+done
