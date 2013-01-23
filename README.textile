@@ -2,6 +2,9 @@
 
 h2. List of tools
 
+* <code>remote</code>
+* <code>colorize</code>
+
 h3. The remote script runner: <code>remote</code>
 
 If you usually run remote script with ssh or tools using ssh (e.g. pssh and onall), you will it's hard to stop remote script. It means, even if the ssh connection is down, the remote script will keep running until it exits normally.
@@ -18,8 +21,7 @@ With the 'remote', you can safely stop this ssh connection any time.
 
 h3. Simple command line output highlighter: <code>colorize</code>
 
-Colorize is similar to grep with --color option, except that it's more user friendly.
-For people like me who don't want to remember XTerm color code, colorize can save you.
+Colorize is similar to grep with <code>--color</code> option, except that it's a bit more user-friendly. For people like me who don't want to remember XTerm color code, colorize can save you.
 
 Here is how to use it.
 
