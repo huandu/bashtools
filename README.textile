@@ -15,3 +15,14 @@ ssh your-host 'remote tail -f your-log'
 </code>
 
 With the 'remote', you can safely stop this ssh connection any time.
+
+h3. Simple command line output highlighter: <code>colorize</code>
+
+Colorize is similar to grep with --color option, except that it's more user friendly.
+For people like me who don't want to remember XTerm color code, colorize can save you.
+
+Here is how to use it.
+
+<code>
+tail -f your.log.file | colorize yellow '^FATAL:'
+</code>
