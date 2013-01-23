@@ -20,7 +20,7 @@ elif [ "$COLOR_NAME" == "white" ]; then
     COLOR_PREFIX="\033[1;37m"
 else
     echo "ERROR: unknown color name '$COLOR_NAME'" >&2
-    help()
+    help
     exit
 fi
 
