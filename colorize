@@ -4,6 +4,18 @@ COLOR_NAME=$1
 REGEXP_STR="$2"
 COLOR_SUFFIX="\033[0m"
 
+function usage() {
+    cat <<EOF
+Colorize first string matches pattern in a line. It's designed for better log display.
+
+Usage: $0 color pattern
+
+    color    Color name. Possible values are
+             'red', 'green', 'yellow', 'blue', 'purple', 'cyan' and 'white'.
+    pattern  A regular expression supported by awk.
+EOF
+}
+
 if [ "$COLOR_NAME" == "red" ]; then
     COLOR_PREFIX="\033[1;31m"
 elif [ "$COLOR_NAME" == "green" ]; then
@@ -18,9 +30,12 @@ elif [ "$COLOR_NAME" == "cyan" ]; then
     COLOR_PREFIX="\033[1;36m"
 elif [ "$COLOR_NAME" == "white" ]; then
     COLOR_PREFIX="\033[1;37m"
+elif [ "$COLOR_NAME" == "" ]; then
+    usage
+    exit
 else
     echo "ERROR: unknown color name '$COLOR_NAME'" >&2
-    help
+    usage
     exit
 fi
 
@@ -35,15 +50,3 @@ awk -v color_prefix="$COLOR_PREFIX" -v color_suffix="$COLOR_SUFFIX" -v reg="$REG
 
     fflush();
 }'
-
-function help() {
-    cat <<EOF
-Colorize first string matches pattern in a line. It's designed for better log display.
-
-Usage: $0 color pattern
-
-    color    Color name. Possible values are
-             'red', 'green', 'yellow', 'blue', 'purple', 'cyan' and 'white'.
-    pattern  A regular expression supported by awk.
-EOF
-}
