@@ -8,17 +8,17 @@ h2. List of tools
 
 h3. The remote script runner: <code>remote</code>
 
-If you usually run remote script with ssh or tools using ssh (e.g. pssh and onall), you will it's hard to stop remote script. It means, even if the ssh connection is down, the remote script will keep running until it exits normally.
+If you usually run remote script with ssh or tools using ssh (e.g. pssh and onall), you will find it's hard to stop remote script manually. It means, even if your ssh connection is down, the remote running script will keep going until it exits normally. If the remote script consumes lots of resource, this default behavior may cause unconscious bad effect.
 
-This script is designed to resolve this issue. It's quite handy.
+This script is designed to resolve this issue. Basically, use it like 'nice'.
 
-Basically, use it like 'nice'. Here is a sample.
+Here is a sample.
 
 <code>
-ssh your-host 'remote tail -f your-log'
+ssh user@your.host remote tail -f your-log
 </code>
 
-With the 'remote', you can safely stop this ssh connection any time.
+With <code>remote</code>, you can safely stop this ssh connection any time.
 
 h3. Simple command line output highlighter: <code>colorize</code>
 
