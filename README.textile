@@ -4,6 +4,7 @@ h2. List of tools
 
 * <code>remote</code>
 * <code>colorize</code>
+* <code>platform</code>
 
 h3. The remote script runner: <code>remote</code>
 
@@ -27,4 +28,30 @@ Here is how to use it.
 
 <code>
 tail -f your.log.file | colorize yellow '^FATAL:'
+</code>
+
+h3. Simple platform detection script: <code>platform</code>
+
+Platform script is to detect and print platform information in bash.
+
+Sample usage.
+
+<code>platform</code>
+
+Above command will print following information on MacOSX.
+
+<code>
+type:           darwin
+kernal_version: 12.4.0
+dist:           Darwin
+dist_version:   12.4.0
+</code>
+
+And following output is the result on Ubuntu server.
+
+<code>
+type:           linux-gnu
+kernal_version: 3.5.0-23-generic
+dist:           Ubuntu
+dist_version:   12.04
 </code>
